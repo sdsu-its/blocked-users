@@ -53,6 +53,11 @@ recipient information.
 For the Recipients, you can provide a list of email addresses, separated by
 commas, similar to how one would enter them in the TO line of an email.
 
+If you ever need top update the configuration, simply run the following command
+similar to how you ran the initial merge command.
+```
+python blocked_users.py --update
+```
 
 # Sample Email
 ![Sample Email Screenshot](sample_email.png)
