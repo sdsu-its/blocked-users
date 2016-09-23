@@ -304,7 +304,7 @@ class Email(object):
             msgRoot = MIMEMultipart('related')
             msgRoot['Subject'] = self.subject
             msgRoot['From'] = "%s <%s>" % (Config.email_from_name, Config.email_from_address)
-            msgRoot['To'] = to
+            msgRoot['To'] = ", ".join(to)
             msgRoot['Date'] = formatdate(localtime=True)
 
             msgAlternative = MIMEMultipart('alternative')
@@ -317,12 +317,12 @@ class Email(object):
             self.smtpserver.starttls()
             self.smtpserver.ehlo()
             self.smtpserver.login(Config.smtp_user, Config.smtp_password)
-            self.smtpserver.sendmail(Config.smtp_user, [to], msgRoot.as_string())
+            self.smtpserver.sendmail(Config.smtp_user, to, msgRoot.as_string())
             self.smtpserver.quit()
             return True
 
         except smtplib.SMTPException as e:
-            logging.exception("Problem Sending Message", e)
+            logging.exception("Problem Sending Message\n" + e.message)
             return False
 
 
@@ -377,7 +377,11 @@ if __name__ == "__main__":
             lname = r[u'answers'][Config.form_config['lname']]
             username = r[u'answers'][Config.form_config['username']]
             course = r[u'answers'][Config.form_config['course']]
-            context = r[u'answers'][Config.form_config['context']]
+            try:
+                context = r[u'answers'][Config.form_config['context']]
+            except KeyError as e:
+                logging.warning("No Context was Provided")
+                context = None
 
             user_info += "%s %s (%s) has been blocked from %s.\n" % (fname, lname, username, course)
             if context is not None and len(context) > 0:
@@ -405,7 +409,7 @@ if __name__ == "__main__":
         email = Email()
         email.html_message = message
         email.subject = "Blocked Users Digest"
-        email.send(Config.email_to_address)
+        email.send(Config.email_to_address.split(","))
     else:
         logging.info("No email needed as no users were blocked for the current period")
 
