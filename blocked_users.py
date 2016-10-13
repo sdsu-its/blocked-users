@@ -373,10 +373,11 @@ if __name__ == "__main__":
     for r in responses:
         if not Config.history.__contains__(r[u'token']):
             # Process Entry
-            fname = r[u'answers'][Config.form_config['fname']]
-            lname = r[u'answers'][Config.form_config['lname']]
-            username = r[u'answers'][Config.form_config['username']]
-            course = r[u'answers'][Config.form_config['course']]
+            fname = r[u'answers'][Config.form_config['fname']].strip()
+            lname = r[u'answers'][Config.form_config['lname']].strip()
+            username = r[u'answers'][Config.form_config['username']].strip().lower()
+            course = r[u'answers'][Config.form_config['course']].strip().upper()
+
             try:
                 context = r[u'answers'][Config.form_config['context']]
             except KeyError as e:
