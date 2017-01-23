@@ -19,7 +19,10 @@ import requests
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-SQL_CMD = "UPDATE course_users SET row_status = 0,data_src_pk1 = 2 WHERE crsmain_pk1 = (SELECT pk1 FROM course_main WHERE course_id = '%s') AND users_pk1 = (SELECT PK1 FROM users WHERE user_id = '%s');"
+# noinspection SqlNoDataSourceInspection,SqlResolve
+SQL_CMD = "UPDATE course_users SET row_status = 0, data_src_pk1 = 2 WHERE crsmain_pk1 = (SELECT pk1 FROM course_main " \
+          "WHERE upper(course_id) = '%s') AND users_pk1 = (SELECT PK1 FROM users WHERE user_id = '%s');"
+
 
 class Config(object):
     config_directory = expanduser("~") + ("/" if not expanduser("~").endswith("/") else '') + 'its'
