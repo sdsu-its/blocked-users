@@ -5,12 +5,11 @@ Occasionally, a user in our Blackboard System will be blocked from a course for
 one reason or another, although this is often caused by conflicts in our
 enrollment system (Students who Add/Drop a class). We collect the data via a
 Type Form, specifically their Name, Username, and the Course that they are
-blocked from. This form can be customized to your specific needs, as long as it
-contains the needed information for the SQL Statement.
+blocked from. This form can be customized to your specific needs.
 
-Each Blackboard configuration will have a slightly different SQL base Statement
-that will unblock/enable a user in a course. The Email, and its template, can be
-customized to your department and system administrators needs.
+Each Blackboard configuration will have a slightly different method of unblocking
+users. The Email, and its template, can be customized to your department and system
+administrators needs.
 
 # Configuration
 The configuration is broken down into 2 sets (Typeform setup and Script Setup)

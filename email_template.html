@@ -44,13 +44,40 @@
                             </p>
 
                             <p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0; padding-top: 15px">
-                                Please submit the SQL Statements below to Behind the Blackboard to request that the
-                                users be unblocked from their respective courses.
+                                For each of the users below, please unblock them from the respective course listed via
+                                the York Data Source Tool within the Blackboard System Admin Panel. The steps to do so
+                                are listed below for your reference.
+
                             </p>
 
-                            <p style="font-family: 'Andale Mono', monospace, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0;">
-                                {{ blocked_user_sql }}
-                            </p>
+                            <ol style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px 16px; padding: 0;">
+                                <li>From within the Blackboard System Admin Panel, click on "UoY Data Source Key Tool"
+                                    under the Tools Box
+                                </li>
+                                <li>Locate the User via Enrolment > By User Search</li>
+                                <li>Check the checkbox in the row coresponding to the course the user is blocked from
+                                </li>
+                                <li>At the bottom of the page, under "Update", check the "Update the records selected
+                                    above" checkbox, as well as the Status checkbox, and make sure "Enabled" is selected
+                                    from the Dropdown
+                                </li>
+                                <li>Click "Submit" at the bottom of the page</li>
+                                <li>Verify that the unblock was successful by looking for a Success message in the
+                                    "Persistence Outcome" column in the "Persistence Complete" result table.
+                                </li>
+                            </ol>
+
+                            <div style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0; padding-top: 15px">
+                                <table style="width: 100%; text-align: left">
+                                    <thead>
+                                    <th>Username</th>
+                                    <th>Course ID</th>
+                                    </thead>
+                                    <tbody>
+                                    {{ blocked_tbody }}
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0;">
                                 Cheers, <br/>

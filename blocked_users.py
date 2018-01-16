@@ -19,10 +19,10 @@ import requests
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# noinspection SqlNoDataSourceInspection,SqlResolve
-SQL_CMD = "UPDATE course_users SET row_status = 0, data_src_pk1 = 2 WHERE crsmain_pk1 = (SELECT pk1 FROM course_main " \
-          "WHERE upper(course_id) = '%s') AND users_pk1 = (SELECT PK1 FROM users WHERE user_id = '%s');"
-
+TABLE_ROW = "<tr>" \
+            "<td>%s</td>" \
+            "<td>%s</td>" \
+            "</tr>"
 
 class Config(object):
     config_directory = expanduser("~") + ("/" if not expanduser("~").endswith("/") else '') + 'its'
@@ -370,7 +370,7 @@ if __name__ == "__main__":
     responses = Typeform.get_responses()
 
     email_needed = False
-    user_sql = ""
+    user_tbody = ""
     user_info = ""
 
     for r in responses:
@@ -392,7 +392,7 @@ if __name__ == "__main__":
                 user_info += "Provided Reason: " + context
             user_info += "\n"
 
-            user_sql += SQL_CMD % (course, username) + "\n"
+            user_tbody += TABLE_ROW % (username, course) + "\n"
 
             Config.history.append(r[u'token'])
             email_needed = True
@@ -407,7 +407,7 @@ if __name__ == "__main__":
     message = message \
         .replace("{{ generated_on_date_footer }}", formatdate(localtime=True)) \
         .replace("{{ blocked_user_info }}", user_info.replace("\n", "<br/>")) \
-        .replace("{{ blocked_user_sql }}", user_sql.replace("\n", "<br/>"))
+        .replace("{{ blocked_tbody }}", user_tbody)
 
     if email_needed:
         email = Email()
